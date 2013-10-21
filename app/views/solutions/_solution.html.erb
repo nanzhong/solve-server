@@ -2,7 +2,7 @@
   <div>
     <strong><%= solution.language.name %></strong> solution by <strong><%= solution.user.username %></strong>
   </div>
-  <pre style="background-color: white; border: 1px solid #ccc; font-size: 80%;"><code class="<%= language_highlight_class(solution.language.key) %>"><%= solution.code.html_safe %></code></pre>
+  <pre style="background-color: white; border: 1px solid #ccc; font-size: 80%;"><code class="<%= language_highlight_class(solution.language.key) %>"><%= solution.code.sub('<?', '&lt;?')html_safe %></code></pre>
   <% if solution.tested %>
   <% if solution.correct %>
   <span style="font-size: 120%; color: green; font-weight: bold;">100% Correct! (<%= solution.test_runs.where(success: true).count %>/<%= solution.test_runs.count %>)</span>
