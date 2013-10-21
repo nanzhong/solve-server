@@ -35,7 +35,7 @@
           </div>
           <div style="float: right;">
             <% if logged_in? %>
-            Hi <%= link_to current_user.username, current_user %>, <%= link_to 'log out', logout_users_path, method: :delete %>
+            Hi <%= link_to current_user.username, current_user, 'data-no-turbolink' => true %>, <%= link_to 'log out', logout_users_path, method: :delete %>
             <% else %>
             <ul class="inline-list">
               <li><%= link_to 'Register', cli_path %></li>
