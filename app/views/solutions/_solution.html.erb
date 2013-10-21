@@ -1,0 +1,15 @@
+<div class="panel">
+  <div>
+    <strong><%= solution.language.name %></strong> solution by <strong><%= solution.user.username %></strong>
+  </div>
+  <pre style="background-color: white; border: 1px solid #ccc; font-size: 80%;"><code class="<%= language_highlight_class(solution.language.key) %>"><%= solution.code.html_safe %></code></pre>
+  <% if solution.tested %>
+  <% if solution.correct %>
+  <span style="font-size: 120%; color: green; font-weight: bold;">100% Correct! (<%= solution.test_runs.where(success: true).count %>/<%= solution.test_runs.count %>)</span>
+  <% else %>
+  <span style="font-size: 120%; color: red; font-weight: bold;"><%= (solution.test_runs.where(success: true).count.to_f / solution.test_runs.count).round(4) * 100 %>% Correct! (<%= solution.test_runs.where(success: true).count %>/<%= solution.test_runs.count %>)</span>
+  <% end %>
+  <% else %>
+  <span style="font-size: 120%; font-weight: bold;">Queued to be tested...</span>
+  <% end %>
+</div>

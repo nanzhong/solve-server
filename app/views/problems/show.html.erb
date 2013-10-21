@@ -1,0 +1,57 @@
+<div class="row">
+  <div class="small-12 columns">
+    <h1><%= @problem.name %></h1>
+  </div>
+</div>
+
+<div class="row">
+  <div class="small-12 large-8 columns">
+    <div class="row">
+      <div class="small-12 columns">
+        <h3 class="subheader">Problem Description</h3>
+        <p>
+          <%= simple_format(@problem.description) %>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="small-12 large-4 columns">
+    <h3 class="subheader">Problem stats</h3>
+    <ul style="list-style: none;">
+      <li><strong>Solutions:</strong> <%= @problem.solutions.count %></li>
+    </ul>
+  </div>
+</div>
+
+<div class="row">
+  <div class="small-12 columns">
+    <h3 class="subheader">Submit your solution!</h3>
+    <p>
+      Using the command line tool of your choice:
+      <pre>solve problem <%= @problem.id %> &lt;language&gt; &lt;solution&gt;</pre>
+    </p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="small-12 columns">
+    <h3 class="subheader">Recent Solutions</h3>
+    <% if logged_in? %>
+    <% if @problem.solutions.where(user: current_user).count > 0 %>
+    <% @problem.solutions.order("id DESC").take(5).each do |solution| %>
+    <%= render partial: 'solutions/solution', object: solution %>
+    <% end %>
+
+    <% if @problem.solutions.count > 5 %>
+    <%= link_to 'See all solutions', problem_solutions_path(@problem), class: 'small button' %>
+    <% end %>
+
+    <% else %>
+    <p>You have to first submit your own solution to this problem before you can see other people's solutions.</p>
+    <% end %>
+    <% else %>
+    <p>You must be logged in and have submitted your own solution before you can see other people's solutions.</p>
+    <% end %>
+  </div>
+</div>

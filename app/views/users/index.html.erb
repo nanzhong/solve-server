@@ -1,0 +1,30 @@
+<div class="row">
+  <div class="small-12 columns">
+    <h1>User Rankings</h1>
+    <div class="row">
+      <div class="small-12 large-4 columns">
+        <h3 class="subheader">Highest Score</h3>
+        <ol style="list-style-position: inside;">
+          <% User.all.sort_by { |u| u.score }.each do |user| %>
+          <li><%= link_to user.username, user %> - <%= user.score %></li>
+          <% end %>
+        </ol>
+      </div>
+      <div class="small-12 large-4 columns">
+        <h3 class="subheader">Most Participation</h3>
+        <ol style="list-style-position: inside;">
+          <% User.all.sort_by { |u| u.solutions.select(:problem_id).uniq.count }.each do |user| %>
+          <li><%= link_to user.username, user %> - <%= user.solutions.select(:problem_id).uniq.count %></li>
+          <% end %>
+        </ol>
+      </div>
+      <div class="small-12 large-4 columns">
+        <h3 class="subheader">Most Solutions</h3>
+        <ol style="list-style-position: inside;">
+          <% User.all.sort_by { |u| u.solutions.count }.each do |user| %>
+          <li><%= link_to user.username, user %> - <%= user.solutions.count %></li>
+          <% end %>
+        </ol>
+      </div>
+  </div>
+</div>

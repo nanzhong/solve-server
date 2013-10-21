@@ -1,0 +1,42 @@
+<%= form_for [@problem, @test = @problem.tests.build] do |f| %>
+  <% if @test.errors.any? %>
+  <div class="row">
+    <div class="small-12 columns">
+      <div id="error_explanation">
+        <h2><%= pluralize(@test.errors.count, "error") %> prohibited this test from being saved:</h2>
+
+        <ul>
+          <% @test.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <% end %>
+
+  <div class="row">
+    <div class="small-12 columns">
+      <%= f.hidden_field :problem_id %>
+      <%= f.label :name %><br>
+      <%= f.text_field :name %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="small-6 columns">
+      <%= f.label :input %><br>
+      <%= f.text_area :input %>
+    </div>
+
+    <div class="small-6 columns">
+      <%= f.label :output %><br>
+      <%= f.text_area :output %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="small-12 columns">
+      <%= f.submit class: 'small button' %>
+    </div>
+  </div>
+<% end %>

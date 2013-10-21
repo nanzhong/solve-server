@@ -1,0 +1,31 @@
+<div class="row">
+  <div class="small-12 columns">
+    <h1>Solve Command Line Interface</h1>
+    <h3 class="subheader">Installation</h3>
+    <p>
+      In order to register for an account and to submit solutions, you will need to use the solve command line tool.<br>
+      You can get it as a rubygem: <pre style="display: inline;">gem install solve-cli</pre>
+    </p>
+    <h3 class="subheader">Usage</h3>
+    <h5 class="subheader">Account</h5>
+    <pre>solve register &lt;username&gt; &lt;email&gt;</pre>
+    <p>Registers an account and links the command line tool to it.</p>
+    <pre>solve link &lt;username&gt; &lt;api_key&gt;</pre>
+    <p>Links the command line tool to an account. You can find your api key by logging in and going to your profile.</p>
+    <pre>solve key</pre>
+    <p>If you ever forget your api key, this will display it for you.</p>
+    <pre>solve login</pre>
+    <p>This will open a browser and log you in. Note: this currently only works on Mac OSX</p>
+    <h5 class="subheader">Submitting Solutions</h5>
+    <pre>solve problem &lt;problem_id&gt; &lt;language&gt; [file]</pre>
+    <p>
+      This submits a solution to the specified problem id. Currently the supported languages are:
+      <ul style="list-style: none;">
+        <% @languages.each do |language| %>
+        <li><strong><%= language.key %>:</strong> <%= language.name %></li>
+        <% end %>
+      </ul>
+      The solution can be passed as a filename or piped in on STDIN.
+    </p>
+  </div>
+</div>

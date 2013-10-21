@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if lt IE 7 ]> <html class="ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>    <html class="ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>    <html class="ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--> <html lang="en"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8" />
+    <!-- Uncomment to make IE8 render like IE7 -->
+    <!-- <meta http-equiv="X-UA-Compatible" content="IE=7" /> -->
+    <!-- Set the viewport width to device width for mobile -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= content_for?(:title) ? yield(:title) : "Solve" %></title>
+
+    <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %>
+    <%= javascript_include_tag "vendor/custom.modernizr" %>
+    <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+
+    <%= csrf_meta_tags %>
+  </head>
+
+  <body>
+    <div class="row">
+      <div class="small-12 columns">
+        <div style="margin-top: 10px; font-size: 90%;">
+          <div style="float: left">
+            <%= link_to '<span style="font-size: 2em; font-weight: bold; text-transform: uppercase;">Solve</span>'.html_safe, root_path %>
+          </div>
+          <div style="float: left; margin-left: 25px;">
+            <ul class="inline-list">
+              <li><%= link_to 'Problems', problems_path %></li>
+              <li><%= link_to 'Rankings', users_path %></li>
+              <li><%= link_to 'Command line tool', cli_path %></li>
+            </ul>
+          </div>
+          <div style="float: right;">
+            <% if logged_in? %>
+            Hi <%= link_to current_user.username, current_user %>, <%= link_to 'log out', logout_users_path, method: :delete %>
+            <% else %>
+            <ul class="inline-list">
+              <li><%= link_to 'Register', cli_path %></li>
+              <li><%= link_to 'Log in', nil, 'data-reveal-id' => 'login-modal' %></li>
+            </ul>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <% flash.each do |name, msg| %>
+    <% if msg.is_a?(String) %>
+    <div class="row">
+      <div class="small-12 columns">
+        <div style="margin-top: 20px;" data-alert class="alert-box <%= name == :notice ? "radius" : "alert radius" %>">
+          <%= content_tag :div, msg, :id => "flash_#{name}" %>
+          <a href class="close">&times;</a>
+        </div>
+      </div>
+    </div>
+    <% end %>
+    <% end %>
+
+    <%= yield %>
+
+    <% if !logged_in? %>
+    <div id="login-modal" class="medium reveal-modal">
+      <h1>Log in</h1>
+      <p>
+        In order to participate in submitting solutions and rankings, you will need to login. You can register an account using the <%= link_to 'command line tool', cli_path %>.
+      </p>
+      <%= form_tag login_users_path do %>
+      <div class="row collapse">
+        <div class="small-3 columns">
+          <span class="prefix">API Key:</span>
+        </div>
+        <div class="small-6 columns">
+          <%= text_field_tag :api_key %>
+        </div>
+        <div class="small-3 columns">
+          <%= submit_tag 'Login', class: 'button postfix' %>
+        </div>
+      </div>
+      <% end %>
+      <div style="font-size: 90%;">
+        <span class="radius label">Forgot your API key?</span> If you do not remember your API key, you can retrieve it using your <%= link_to 'command line tool', cli_path %> by running <pre style="display: inline;">solve key</pre>, or you can login directly by running <pre style="display: inline;">solve login</pre>.
+      </div>
+      <a class="close-reveal-modal">&#215;</a>
+    </div>
+    <% end %>
+
+  </body>
+</html>

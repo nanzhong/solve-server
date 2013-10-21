@@ -1,0 +1,29 @@
+<div class="row">
+  <div class="small-12 columns">
+    <h1>Problems <small>Gotta solve 'em all!</small></h1>
+
+    <table style="width: 100%;">
+      <thead>
+        <tr>
+          <th style="width: 40px;">ID</th>
+          <th>Problem Name</th>
+          <th style="width: 100px;">Participants</th>
+          <th style="width: 100px;">Solutions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @problems.each do |problem| %>
+        <tr>
+          <td><%= problem.id %></td>
+          <td><%= link_to problem.name, problem, 'data-no-turbolink' => true %></td>
+          <td><%= problem.participants.count %></td>
+          <td><%= problem.solutions.count %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="small-4 columns">
+  </div>
+</div>

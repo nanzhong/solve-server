@@ -1,0 +1,9 @@
+<div class="row">
+  <div class="small-12 columns">
+    <h1><%= @user.username %> <small>(<%= @user.score %>)</small></h1>
+    <h3 class="subheader">Recent Solutions</h3>
+    <% @user.solutions.order('id DESC').take(5).each do |solution| %>
+    <%= render partial: 'solutions/solution', object: solution %>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,39 @@
+<div class="row">
+  <div class="small-12 columns">
+    <h1><%= @problem.name %></h1>
+  </div>
+</div>
+
+<div class="row">
+  <div class="small-12 large-7 columns">
+    <p>
+      <%= simple_format(@problem.description) %>
+    </p>
+    <h2 class="subheader">Test Cases</h2>
+    <table style="width: 100%;">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Input</th>
+          <th>Output</th>
+          <th style="width: 50px;">Edit</th>
+      </thead>
+      <tbody>
+        <% @problem.tests.each do |test| %>
+        <tr>
+          <td><%= test.name %></td>
+          <td><%= test.input %></td>
+          <td><%= test.output %></td>
+          <td><%= link_to 'Edit', edit_admin_problem_test_path(@problem, test), class: 'small button', style: 'margin-bottom: 0;' %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div class="small-12 large-5 columns">
+    <div class="panel">
+      <h3>Add a test case</h3>
+      <%= render partial: 'admin/tests/form', locals: { test: @problem.tests.build } %>
+    </div>
+  </div>
+</div>
