@@ -1,8 +1,0 @@
-<div class="row">
-  <div class="small-12 columns">
-    <h1>Solutions to <%= link_to @problem.name, @problem %></h1>
-    <% @solutions.each do |solution| %>
-    <%= render partial: 'solutions/solution', object: solution %>
-    <% end %>
-  </div>
-</div>
